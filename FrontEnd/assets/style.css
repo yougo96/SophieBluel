@@ -1,5 +1,6 @@
 /* var */
 * {
+	color: #3D3D3D;
 }
 :root {
     --main-color: #1D6154;
@@ -24,8 +25,8 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+	/* font-size: 100%;
+	font: inherit; */
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -58,12 +59,25 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+
+	display: flex;
+    flex-direction: column;
+	justify-content: space-between;
+	min-height: calc(100vh);
 }
+
+/** header **/
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin-top: 50px;
 }
+header a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+/** section **/
 section {
 	margin: 50px 0
 }
@@ -91,18 +105,19 @@ h2{
 	color: var(--main-color)
 }
 
+
 /** Nav **/
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	color: black;
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-li:hover {
+nav li:hover {
 	color: #B1663C;
 }
 
@@ -147,34 +162,38 @@ li:hover {
 	width: 100%;
 
 }
-/** Form contact **/
-#contact {
+/** Form section **/
+.section-form {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+.section-form > * {
 	text-align: center;
-
 }
-#contact h2{
+.section-form a {
+	text-align: center;
+	font-weight: bolder;
+}
+.section-form h2{
 	margin-bottom: 20px;
 }
-#contact form {
+.section-form form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
-#contact input {
+.section-form input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+.section-form label {
 	margin: 2em 0 1em 0;
+	font-weight: bolder;
 }
-#contact textarea {
+.section-form textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -189,12 +208,22 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+input[type="submit"]:hover {
+	background-color: #0E2F28;
+	cursor: pointer;
+}
+
 /** Footer **/
+footer {
+	margin-top: 2rem;
+	width: 100%;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	padding: 2em;
 	background-color: white;
+	color: black;
 }
 
 /** Filters **/

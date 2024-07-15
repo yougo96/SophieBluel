@@ -56,7 +56,6 @@ function clickFilters(event) {
             elem.classList.toggle("d-none", false)
         }
     })
-
 }
 
 
