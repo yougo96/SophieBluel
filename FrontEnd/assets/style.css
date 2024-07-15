@@ -216,11 +216,16 @@ footer nav ul {
 	padding: 10px 20px;
 }
 #portfolio li:hover {
-	background-color: color-mix(in srgb, var(--main-color), white 50%);
+	outline: medium solid var(--main-color);
 	color: var(--main-color);
+	cursor: pointer;
 }
 #portfolio li.active {
 	background-color: var(--main-color);
 	color: white;
 }
 
+
+.d-none {
+	display: none !important;
+}
