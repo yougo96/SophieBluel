@@ -10,7 +10,7 @@ async function works() {
             childDiv.setAttribute('categoryid', i.categoryId)
             childDiv.setAttribute('userid', i.userId)
             childDiv.innerHTML = `
-                <img src="${i.imageUrl}" alt="${i.title}">
+                <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
                 <figcaption>${i.title}</figcaption>
             `
             parentDiv.appendChild(childDiv)
