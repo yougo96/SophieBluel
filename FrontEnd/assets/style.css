@@ -55,8 +55,6 @@ table {
 }
 /** end reset css **/
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 
@@ -65,12 +63,30 @@ body {
 	justify-content: space-between;
 	min-height: calc(100vh);
 }
+main {
+	max-width: 1140px;
+	margin:auto;
+}
+
+/** Banner **/
+.banner {
+	background-color: black;
+	color: white;
+	padding: 20px 0;
+	font-size: 16px;
+	text-align: center;
+
+}
+.banner > * {
+	color: white;
+}
 
 /** header **/
 header {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 50px;
+	padding: 0 150px;
 }
 header a {
 	color: inherit;
@@ -81,6 +97,20 @@ header a {
 section {
 	margin: 50px 0
 }
+section .section-title {
+	display: flex;
+    margin-bottom: 1em;
+	text-align: center;
+    align-items: center;
+    justify-content: center;
+	gap: 30px;
+}
+section .section-title a, section .section-title a > * {
+	color: black;
+	font-size: 16px;
+	text-decoration: none;
+}
+
 /** Typo **/
 h1{
 	display: flex;
@@ -144,12 +174,6 @@ nav li:hover {
 	margin-bottom: 0.5em;
 }
 
-/** Portfolio **/
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
 /** gallery**/
 .gallery {
 	width: 100%;
@@ -164,7 +188,7 @@ nav li:hover {
 }
 /** Form section **/
 .section-form {
-	width: 50%;
+	width: 50vw;
 	margin: auto;
 }
 .section-form > * {
@@ -220,7 +244,6 @@ input[type="submit"]:hover {
 /** Footer **/
 footer {
 	margin-top: 2rem;
-	width: 100%;
 }
 footer nav ul {
 	display: flex;
