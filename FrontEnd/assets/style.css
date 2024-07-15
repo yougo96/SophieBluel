@@ -1,8 +1,13 @@
+/* var */
+* {
+}
+:root {
+    --main-color: #1D6154;
+}
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -30,6 +35,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
@@ -46,7 +52,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/** end reset css**/
+/** end reset css **/
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -61,7 +67,7 @@ header {
 section {
 	margin: 50px 0
 }
-
+/** Typo **/
 h1{
 	display: flex;
 	flex-direction: column;
@@ -82,8 +88,10 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: var(--main-color)
 }
+
+/** Nav **/
 nav ul {
 	display: flex;
 	align-items: center;
@@ -94,10 +102,11 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
 li:hover {
 	color: #B1663C;
 }
+
+/** Intro **/
 #introduction {
 	display: flex;
 	align-items: center;
@@ -110,21 +119,23 @@ li:hover {
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/** Portfolio **/
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/** gallery**/
 .gallery {
 	width: 100%;
 	display: grid;
@@ -132,11 +143,11 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 
 }
+/** Form contact **/
 #contact {
 	width: 50%;
 margin: auto;
@@ -154,7 +165,6 @@ margin: auto;
 	display: flex;
 	flex-direction: column;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
@@ -173,16 +183,44 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: var(--main-color);
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
 }
-
+/** Footer **/
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	padding: 2em;
+	background-color: white;
+}
+
+/** Filters **/
+#portfolio ul {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	gap: 10px;
+
+	margin: 3rem 0;
+	font-family: 'Syne';
+	font-weight: 700;
+	line-height: 19px;
+	color: var(--main-color);
+}
+#portfolio li {
+	border: thin solid var(--main-color);
+	border-radius: 5rem;
+	padding: 10px 20px;
+}
+#portfolio li:hover {
+	background-color: color-mix(in srgb, var(--main-color), white 50%);
+	color: var(--main-color);
+}
+#portfolio li.active {
+	background-color: var(--main-color);
+	color: white;
 }
 
