@@ -28,12 +28,30 @@ async function deleteWorks(event) {
     })
 }
 
+function nextStep(event) {
+    console.log("trying change step")
+
+    document.querySelectorAll(`dialog article`).forEach((elem) => {
+        elem.classList.toggle("d-none", true)
+    })
+
+    let target = event.target.getAttribute("step-target")
+    console.log(target)
+
+    document.querySelector(`dialog [step="${target}"]`).classList.toggle("d-none", false)
+
+    console.log("change step")
+}
+
 worksModal()
 
-// document.querySelector(`#modal-gallery [name="next"]`).addEventListener("click", nextStep)
 setTimeout(() => {
     document.querySelectorAll(`#modal-gallery [name="trash"]`).forEach((elem) => {
         elem.addEventListener("click", deleteWorks)
+    })
+
+    document.querySelectorAll(`[step-target]`).forEach((elem) => {
+        elem.addEventListener("click", nextStep)
     })
 }, 200);
 

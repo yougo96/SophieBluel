@@ -135,6 +135,9 @@ h2{
 	color: var(--main-color)
 }
 
+i {
+	pointer-events: none;
+}
 
 /** Nav **/
 nav ul {
@@ -201,26 +204,52 @@ nav li:hover {
 .section-form h2{
 	margin-bottom: 20px;
 }
-.section-form form {
+.section-form form, form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
-.section-form input, button {
+form input, button {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
 }
-.section-form label {
+form label {
 	margin: 2em 0 1em 0;
 	font-weight: bolder;
 }
-.section-form textarea {
+form textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+form input[type="file"] {
+	display: none;
+}
+form .custom-file {
+	background-color: #E8F1F6;
+	height: 170px;
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+	padding: 20px;
+	color: #444444;
+	gap: 7px;
+	cursor: pointer;
+}
+form .custom-file button {
+	background-color: #CBD6DC;
+	color: #306685;
+}
+form .custom-file img {
+	height: 76px;
+}
+form .custom-file span {
+	font-weight: 400;
+	font-size: 10px;
 }
 
 input[type="submit"], button {
@@ -297,15 +326,22 @@ dialog > article {
 
 	max-width: 630px;
 }
-dialog > article [aria-label="Close"] {
+dialog > article form {
+	width: 630px;
+}
+dialog > article [aria-label="Close"], dialog > article [aria-label="back"] {
 	position: absolute;
 	top: 0; right: 0;
 	margin: 40px;
+	padding: 0;
 	border-radius: 2px;
 
 	background-color: transparent;
 	box-shadow: none;
 	width: 24px; height: 24px;
+}
+dialog > article [aria-label="back"] {
+	top: 0; left: 0;
 }
 dialog > article button {
 	margin: 0;
@@ -347,7 +383,6 @@ dialog .modal-gallery [name="trash"] {
 dialog .modal-gallery i {
 	color: white;
 	font-size: 11px;
-	pointer-events: none;
 }
 
 .d-none {
