@@ -207,7 +207,7 @@ nav li:hover {
 	display: flex;
 	flex-direction: column;
 }
-.section-form input {
+.section-form input, button {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -222,7 +222,7 @@ nav li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"], button {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -230,7 +230,7 @@ input[type="submit"]{
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
 }
 input[type="submit"]:hover {
 	background-color: #0E2F28;
@@ -279,6 +279,41 @@ footer nav ul {
 #portfolio li.active {
 	background-color: var(--main-color);
 	color: white;
+}
+
+/** Dialog **/
+dialog {
+	border-radius: 10px;
+	border: 0;
+	padding: 50px 100px;
+}
+dialog > article {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+	gap: 30px;
+}
+dialog > article [aria-label="Close"] {
+	position: absolute;
+	top: 0; right: 0;
+	margin: 40px;
+	border-radius: 2px;
+
+	background-color: transparent;
+	box-shadow: none;
+	width: 24px; height: 24px;
+}
+dialog > article button {
+	margin: 0;
+}
+dialog > article h3 {
+	font-size: 26px;
+	color: black;
+	font-weight: 400;
+}
+dialog > article hr {
+	border-top: thin solid #B3B3B3;
+	width: 100%;
 }
 
 

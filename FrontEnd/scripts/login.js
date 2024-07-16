@@ -10,8 +10,6 @@ function handleLogin(event) {
     })
     .then((response) => {
         if( response.ok ) {
-            console.log("login success")
-
             response.json().then((json) => {
                 console.log(json)
                 sessionStorage.setItem("userId", JSON.stringify(json.userId));

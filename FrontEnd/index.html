@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 
 	<script src="./scripts/main.js" defer></script>
+	<script src="./scripts/modal.js" defer></script>
 </head>
 <body>
 
@@ -56,7 +57,7 @@
 
 		<div class="section-title">
 			<h2>Mes Projets</h2>
-			<a href="#" class="auth-admin d-none" id="edit">
+			<a href="#" class="auth-admin d-none" id="edit" data-target="modal-example" onclick="toggleModal(event)">
 				<i class="fa-regular fa-pen-to-square"></i>
 				modifier
 			</a>
@@ -94,6 +95,22 @@
 		</ul>
 	</nav>
 </footer>
+
+<!-- Modal -->
+<dialog id="modal-example">
+	<article>
+		<button aria-label="Close" rel="prev" data-target="modal-example" onclick="toggleModal(event)">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+		<h3>Galerie photo</h3>
+		<p>
+			Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus
+			pellentesque. Nullam finibus risus non semper euismod.
+		</p>
+		<hr>
+		<button>Ajouter une photo</button>
+	</article>
+</dialog>
 
 </body>
 </html>
