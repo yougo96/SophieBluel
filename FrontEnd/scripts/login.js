@@ -12,8 +12,8 @@ function handleLogin(event) {
         if( response.ok ) {
             response.json().then((json) => {
                 console.log(json)
-                sessionStorage.setItem("userId", JSON.stringify(json.userId));
-                sessionStorage.setItem("token", JSON.stringify(json.token));
+                sessionStorage.setItem("userId", json.userId);
+                sessionStorage.setItem("token", json.token);
             })            
             window.location.href = "./index.html";
         } else {

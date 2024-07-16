@@ -125,7 +125,7 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
+	color: #B1663C;
 }
 
 h2{
@@ -212,6 +212,7 @@ nav li:hover {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
 }
 .section-form label {
 	margin: 2em 0 1em 0;
@@ -228,7 +229,7 @@ input[type="submit"], button {
 	color: white;
 	background-color: var(--main-color);
 	margin : 2em auto ;
-	width: 180px;
+	padding: 0 40px;
 	text-align: center;
 	border-radius: 60px;
 }
@@ -270,6 +271,7 @@ footer nav ul {
 	border: thin solid var(--main-color);
 	border-radius: 5rem;
 	padding: 10px 20px;
+	color: var(--main-color);
 }
 #portfolio li:hover {
 	outline: medium solid var(--main-color);
@@ -292,6 +294,8 @@ dialog > article {
 	flex-direction: column;
     align-items: center;
 	gap: 30px;
+
+	max-width: 630px;
 }
 dialog > article [aria-label="Close"] {
 	position: absolute;
@@ -316,6 +320,35 @@ dialog > article hr {
 	width: 100%;
 }
 
+dialog .modal-gallery {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+	gap: 10px;
+}
+dialog .modal-gallery figure {
+	position: relative;
+}
+dialog .modal-gallery img {
+	width: 100%;
+}
+dialog .modal-gallery [name="trash"] {
+	position: absolute;
+	top : 0; right: 0;
+	margin: 6px;
+	border-radius: 2px;
+	color: white;
+	background-color: black;
+	height: 17px; width: 17px;
+	padding: 0;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+dialog .modal-gallery i {
+	color: white;
+	font-size: 11px;
+	pointer-events: none;
+}
 
 .d-none {
 	display: none !important;

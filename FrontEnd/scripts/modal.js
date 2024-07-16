@@ -15,7 +15,7 @@ const toggleModal = (event) => {
 const openModal = (modal) => {    
     setTimeout(() => {
         visibleModal = modal;
-      }, 1);
+      }, 10);
       modal.showModal();
 };
 

@@ -5,9 +5,11 @@ let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
 
 if (userId && token) {
-    document.querySelectorAll(".auth-admin").forEach((elem) => {
-        elem.classList.toggle("d-none", false)
-    })
+    if (userId = 1) {
+        document.querySelectorAll(".auth-admin").forEach((elem) => {
+            elem.classList.toggle("d-none", false)
+        })
+    }
     document.querySelectorAll(".auth-login").forEach((elem) => {
         elem.classList.toggle("d-none", false)
     })
@@ -24,7 +26,7 @@ document.querySelector("#logout").addEventListener("click", () => {
 
 // === Fetch /works ========================================================================
 async function works() {
-    fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
+    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
 
         console.log(obj)
         let parentDiv = document.querySelector('.gallery')

@@ -15,6 +15,7 @@
 
 	<script src="./scripts/main.js" defer></script>
 	<script src="./scripts/modal.js" defer></script>
+	<script src="./scripts/modalContent.js" defer></script>
 </head>
 <body>
 
@@ -98,18 +99,32 @@
 
 <!-- Modal -->
 <dialog id="modal-example">
-	<article>
+
+	<article id="modal-gallery" class="">
 		<button aria-label="Close" rel="prev" data-target="modal-example" onclick="toggleModal(event)">
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 		<h3>Galerie photo</h3>
+		<div class="modal-gallery">
+
+		</div>
+		<hr>
+		<button name="next">Ajouter une photo</button>
+	</article>
+
+	<article id="modal-add" class="d-none">
+		<button aria-label="Back">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+		<h3>Ajout photo</h3>
 		<p>
 			Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus
 			pellentesque. Nullam finibus risus non semper euismod.
 		</p>
 		<hr>
-		<button>Ajouter une photo</button>
+		<button type="button">Valider</button>
 	</article>
+
 </dialog>
 
 </body>
