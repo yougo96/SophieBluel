@@ -76,20 +76,20 @@ async function sendWorkModal(event) {
 
     console.log("trying to add works", event)
 
-    worksData = Object.fromEntries(new FormData(event.target))
+    const formData = new FormData(event.target)
 
-    console.log(worksData)
+
+    console.log(formData)
 
     await fetch(event.target.action, {
         method: "post",
         headers: { Authorization: `Bearer ${token}` },
-        body: JSON.stringify(worksData)
-    }).then((response) => {
+        body: formData
+        
+    })
+    .then((response) => {
         if( response.ok ) {
-            response.json().then((json) => {
-                console.log("work post", json)
-            })            
-            window.location.href = "./index.html";
+            console.log("work post", json)
         } else {
             console.log("work post Failed")
             document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
@@ -117,7 +117,8 @@ setTimeout(() => {
 
     document.querySelector('dialog input[type="file"]').addEventListener("change", imagePreview)
     
-    document.querySelector("dialog form").addEventListener("submit", sendWorkModal)
+    let workForm = document.querySelector("dialog form")
+    workForm.addEventListener("submit", sendWorkModal)
 
 }, 200);
 
