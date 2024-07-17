@@ -190,6 +190,32 @@ nav li:hover {
 
 }
 /** Form section **/
+input[type="submit"], button {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 1.2em;
+	color: white;
+	
+	background-color: var(--main-color);
+	border: none;
+	border-radius: 60px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
+
+	margin : 2em auto ;
+	padding: 0 40px;
+	text-align: center;
+	
+	height: 50px;
+}
+input[type="submit"] > *, button > * {
+	pointer-events: none;
+}
+input[type="submit"]:hover, button:hover {
+	background-color: #0E2F28;
+	cursor: pointer;
+}
+
 .section-form {
 	width: 50vw;
 	margin: auto;
@@ -210,7 +236,7 @@ nav li:hover {
 	display: flex;
 	flex-direction: column;
 }
-form input, button {
+form input, select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -239,10 +265,19 @@ form .custom-file {
 	color: #444444;
 	gap: 7px;
 	cursor: pointer;
+
+	position: relative;
 }
 form .custom-file button {
 	background-color: #CBD6DC;
 	color: #306685;
+	pointer-events: none;
+}
+form .custom-file .custom-file-preview {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	pointer-events: none;
 }
 form .custom-file img {
 	height: 76px;
@@ -250,21 +285,6 @@ form .custom-file img {
 form .custom-file span {
 	font-weight: 400;
 	font-size: 10px;
-}
-
-input[type="submit"], button {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: var(--main-color);
-	margin : 2em auto ;
-	padding: 0 40px;
-	text-align: center;
-	border-radius: 60px;
-}
-input[type="submit"]:hover {
-	background-color: #0E2F28;
-	cursor: pointer;
 }
 
 [role="alert"] {
@@ -343,7 +363,7 @@ dialog > article [aria-label="Close"], dialog > article [aria-label="back"] {
 dialog > article [aria-label="back"] {
 	top: 0; left: 0;
 }
-dialog > article button {
+dialog > article input[type="submit"], dialog > article button {
 	margin: 0;
 }
 dialog > article h3 {

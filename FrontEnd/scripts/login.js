@@ -3,10 +3,10 @@ loginForm.addEventListener("submit", handleLogin)
 
 function handleLogin(event) {
     event.preventDefault();
-    fetch(loginForm.action, {
+    fetch(event.target.action, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(new FormData(loginForm)))
+        body: JSON.stringify(Object.fromEntries(new FormData(event.target)))
     })
     .then((response) => {
         if( response.ok ) {

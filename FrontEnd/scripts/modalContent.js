@@ -1,8 +1,10 @@
+// UI modale
 async function worksModal() {
-    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
-
+        await worksJson()
         let parentDiv = document.querySelector('.modal-gallery')
-        obj.forEach(i => {
+        parentDiv.innerHTML = ``
+
+        works.forEach(i => {
             let childDiv = document.createElement("figure")
             childDiv.id = i.id
             childDiv.setAttribute('categoryid', i.categoryId)
@@ -13,19 +15,20 @@ async function worksModal() {
             `
             parentDiv.appendChild(childDiv)
         });
-    })
 }
 
-async function deleteWorks(event) {
-    event.preventDefault();
+async function categorieModal() {
+    await categoriesJson()
 
-    let id = event.target.getAttribute("imageid")
-    console.log("trying to delete ", id)
+    let parentDiv = document.querySelector('dialog select')
+    parentDiv.innerHTML = ``
 
-    await fetch(`http://localhost:5678/api/works/${id}`, {
-        method: "DELETE",
-        headers : {Authorization: `Bearer ${token}`}
-    })
+    categories.forEach(i => {
+        let childDiv = document.createElement("option")
+        childDiv.value = i.id
+        childDiv.innerHTML = `${i.name}`
+        parentDiv.appendChild(childDiv)
+    });
 }
 
 function nextStep(event) {
@@ -43,7 +46,65 @@ function nextStep(event) {
     console.log("change step")
 }
 
+let imagePreviewUrl = null
+
+function imagePreview(event) {
+    let childDiv = document.querySelector('dialog .custom-file-preview')
+    childDiv.src = URL.createObjectURL(event.target.files[0])
+    childDiv.classList.toggle("d-none", false)
+    imagePreviewUrl = childDiv.src
+}
+
+// Form modal
+async function deleteWorks(event) {
+    event.preventDefault();
+
+    let id = event.target.getAttribute("imageid")
+    console.log("trying to delete ", id)
+
+    await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers : {Authorization: `Bearer ${token}`}
+    })
+
+    await worksUi()
+    await worksModal()
+}
+
+async function sendWorkModal(event) {
+    event.preventDefault();
+
+    console.log("trying to add works", event)
+
+    worksData = Object.fromEntries(new FormData(event.target))
+
+    console.log(worksData)
+
+    await fetch(event.target.action, {
+        method: "post",
+        headers: { Authorization: `Bearer ${token}` },
+        body: JSON.stringify(worksData)
+    }).then((response) => {
+        if( response.ok ) {
+            response.json().then((json) => {
+                console.log("work post", json)
+            })            
+            window.location.href = "./index.html";
+        } else {
+            console.log("work post Failed")
+            document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+        }
+    })
+    .catch((err) => {
+        console.log(err)
+    });
+}
+
+
+
+// Build
 worksModal()
+categorieModal()
 
 setTimeout(() => {
     document.querySelectorAll(`#modal-gallery [name="trash"]`).forEach((elem) => {
@@ -53,6 +114,11 @@ setTimeout(() => {
     document.querySelectorAll(`[step-target]`).forEach((elem) => {
         elem.addEventListener("click", nextStep)
     })
+
+    document.querySelector('dialog input[type="file"]').addEventListener("change", imagePreview)
+    
+    document.querySelector("dialog form").addEventListener("submit", sendWorkModal)
+
 }, 200);
 
 

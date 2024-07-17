@@ -25,40 +25,56 @@ document.querySelector("#logout").addEventListener("click", () => {
 
 
 // === Fetch /works ========================================================================
-async function works() {
-    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
+let works = null
 
-        console.log(obj)
-        let parentDiv = document.querySelector('.gallery')
-        obj.forEach(i => {
-            let childDiv = document.createElement("figure")
-            childDiv.id = i.id
-            childDiv.setAttribute('categoryid', i.categoryId)
-            childDiv.setAttribute('userid', i.userId)
-            childDiv.innerHTML = `
-                <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
-                <figcaption>${i.title}</figcaption>
-            `
-            parentDiv.appendChild(childDiv)
-        });
+async function worksJson() {
+    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
+        console.log("worksJson", obj)
+        works = obj
     })
+}
+async function worksUi() {
+    await worksJson()
+
+    let parentDiv = document.querySelector('.gallery')
+    parentDiv.innerHTML = ``
+
+    works.forEach(i => {
+        let childDiv = document.createElement("figure")
+        childDiv.id = i.id
+        childDiv.setAttribute('categoryid', i.categoryId)
+        childDiv.setAttribute('userid', i.userId)
+        childDiv.innerHTML = `
+            <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
+            <figcaption>${i.title}</figcaption>
+        `
+        parentDiv.appendChild(childDiv)
+    });
 }
 
 // === Fetch /categories ========================================================================
-async function categories() {
-    await fetch("http://localhost:5678/api/categories").then((res) => {return res.json()}).then((obj) => {
+let categories = null
 
-        console.log(obj)
-        let parentDiv = document.querySelector('#portfolio > ul')
-        obj.forEach(i => {
-            let childDiv = document.createElement("li")
-            childDiv.id = i.id
-            childDiv.innerHTML = `
-            ${i.name}
-            `
-            parentDiv.appendChild(childDiv)
-        });
+async function categoriesJson() {
+    await fetch("http://localhost:5678/api/categories").then((res) => {return res.json()}).then((obj) => {
+        console.log("categoriesJson", obj)
+        categories = obj;
     })
+}
+async function FiltersUi() {
+    await categoriesJson()
+
+    let parentDiv = document.querySelector('#portfolio > ul')
+    parentDiv.innerHTML = `<li id="0" class="active">Tous</li>`
+
+    categories.forEach(i => {
+        let childDiv = document.createElement("li")
+        childDiv.id = i.id
+        childDiv.innerHTML = `
+        ${i.name}
+        `
+        parentDiv.appendChild(childDiv)
+    });
 
     document.querySelectorAll("#portfolio > ul > li").forEach((elem) => {
         elem.addEventListener("click", clickFilters)
@@ -87,7 +103,8 @@ function clickFilters(event) {
 
 
 // === Build page ========================================================================
-works()
-categories()
+worksUi()
+FiltersUi()
+
 
 

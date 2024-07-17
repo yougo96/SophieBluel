@@ -65,7 +65,6 @@
 		</div>
 
 		<ul>
-			<li id="0" class="active">Tous</li>
 			<!-- ajax -->
 		</ul>
 		<div class="gallery">
@@ -106,7 +105,7 @@
 		</button>
 		<h3>Galerie photo</h3>
 		<div class="modal-gallery">
-
+			<!-- ajax -->
 		</div>
 		<hr>
 		<button step-target="2">Ajouter une photo</button>
@@ -120,20 +119,29 @@
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 		<h3>Ajout photo</h3>
-		<form action="#" method="post">
+		<h3 role="alert" class="d-none">Erreur dans l'envoie</h3>
+		<form action="http://localhost:5678/api/works" method="post" enctype="multipart/form-data">
 			<label for="image" class="custom-file">
 				<img src="./assets/icons/picture.png" alt="picture icon">
 				<button>+ Ajouter photo</button>
 				<span>jpg, png : 4mo max</span>
+				<!-- ajax -->
+				<img src="" alt="" class="custom-file-preview d-none">
 			</label>
-			<input type="file" id="image" name="image" accept="image/png, image/jpeg" />
-			<label for="titre">Titre</label>
-			<input type="text" name="title" id="title">
+			<input type="file" id="image" name="image" accept="image/png, image/jpeg"  required>
+
+			<label for="title">Titre</label>
+			<input type="text" id="title" name="title" required>
+			
 			<label for="category">Catégorie</label>
-			<input type="email" name="category" id="category">
+			<select id="category" name="category" value="1" required>
+				<!-- ajax -->
+			</select>
+
+			<hr style="margin: 37px 0;">
+			<input type="submit" value="Valider">
 		</form>
-		<hr>
-		<button type="button">Valider</button>
+
 	</article>
 
 </dialog>

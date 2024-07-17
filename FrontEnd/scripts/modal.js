@@ -1,5 +1,3 @@
-// Pico.css - https://picocss.com Copyright 2019-2024 - Licensed under MIT
-
 // Config
 let visibleModal = null;
 
@@ -15,8 +13,8 @@ const toggleModal = (event) => {
 const openModal = (modal) => {    
     setTimeout(() => {
         visibleModal = modal;
-      }, 10);
-      modal.showModal();
+    }, 10);
+    modal.showModal();
 };
 
 // Close modal
