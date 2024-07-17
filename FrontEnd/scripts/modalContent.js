@@ -98,6 +98,12 @@ async function sendWorkModal(event) {
     .catch((err) => {
         console.log(err)
     });
+
+    await worksUi()
+    await worksModal()
+    event.target.reset()
+    document.querySelector('dialog .custom-file-preview').src = ""
+    document.querySelector("dialog").close()
 }
 
 
