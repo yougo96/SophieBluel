@@ -98,21 +98,30 @@ function filtersAction(event) {
     })
 }
 
+function checkValidityForm(event) {
+
+    // fo.forEach( (elem => {
+    //     if(elem.hasAttribute('required') && elem.value != null){
+    //         //do your stuff
+    //     }
+    // })
+
+    console.log(event.currentTarget)
+
+    // WIP
+    if (event.currentTarget.reportValidity() == true) {
+        console.log("form valid")
+        event.currentTarget.querySelector('[type="submit"]').setAttribute("role", "")
+    } else {
+        console.log("form not valid")
+        event.currentTarget.querySelector('[type="submit"]').setAttribute("role", "alert")
+    }
+}
 
 // === Build page ========================================================================
 worksUi()
 FiltersUi()
 
 document.querySelectorAll("form").forEach((elem) => 
-    elem.addEventListener("change", checkValidityForm)
+    elem.addEventListener("input", checkValidityForm)
 );
-
-function checkValidityForm(event) {
-    // WIP
-    if (event.target.reportValidity() == true) {
-        console.log("form valid")
-        document.querySelector('[type="submit"]').setAttribute("role", "")
-    } else {
-        document.querySelector('[type="submit"]').setAttribute("role", "alert")
-    }
-}

@@ -1,5 +1,5 @@
 // Toggle modal
-function toggleModal (event) {
+function toggleModal(event) {
     event.preventDefault()
     const modal = document.getElementById(event.currentTarget.dataset.target)
     if (!modal) return
@@ -14,7 +14,7 @@ function goToStep(step) {
     if (step) document.querySelector(`dialog [step="${step}"]`).classList.toggle("d-none", false)
 }
 
-// UI modale
+// UI modal
 async function worksModal() {
     await worksJson()
     let parentDiv = document.querySelector('.modal-gallery')
@@ -34,91 +34,104 @@ async function worksModal() {
 }
 
 async function categorieModal() {
-await categoriesJson()
+    await categoriesJson()
 
-let parentDiv = document.querySelector('dialog select')
-parentDiv.innerHTML = ``
+    let parentDiv = document.querySelector('dialog select')
+    parentDiv.innerHTML = ``
 
-categories.forEach(i => {
-    let childDiv = document.createElement("option")
-    childDiv.value = i.id
-    childDiv.innerHTML = `${i.name}`
-    parentDiv.appendChild(childDiv)
-});
+    categories.forEach(i => {
+        let childDiv = document.createElement("option")
+        childDiv.value = i.id
+        childDiv.innerHTML = `${i.name}`
+        parentDiv.appendChild(childDiv)
+    });
 }
 
 
 function imagePreview(event) {
 
-let childDiv = document.querySelector('dialog .form-file-preview')
-let imageSize = event.target.files[0].size
+    let childDiv = document.querySelector('dialog .form-file-preview')
 
-if (imageSize < 4705078 && childDiv) {
-    childDiv.src = URL.createObjectURL(event.target.files[0])
-    childDiv.classList.toggle("d-none", false)
-    document.querySelector('dialog .form-file-label').setAttribute("role", "")
-} else {
-    childDiv.src = ""
-    childDiv.classList.toggle("d-none", true)
-    document.querySelector('dialog .form-file-label').setAttribute("role", "alert")
-    workModalForm.reset()
-}
+    let imageFile = event.target.files[0]
+
+    console.log(imageFile)
+    console.log(event.target)
+
+    if ( imageFile != undefined || imageFile != null
+        && childDiv
+        && (imageFile.type == "image/png" || imageFile.type == "image/jpeg")
+        && imageFile.size < 4705078
+    ) {
+        childDiv.src = URL.createObjectURL(imageFile)
+        childDiv.classList.toggle("d-none", false)
+        document.querySelector('dialog .form-file-label').setAttribute("role", "")
+    } else {
+        childDiv.src = ""
+        childDiv.classList.toggle("d-none", true)
+        document.querySelector('dialog .form-file-label').setAttribute("role", "alert")
+        workModalForm.reset()
+    }
 }
 
 // Form modal
 async function deleteWorks(event) {
-event.preventDefault();
+    event.preventDefault();
 
-let id = event.target.getAttribute("imageid")
-console.log("trying to delete ", id)
+    let id = event.target.getAttribute("imageid")
 
-await fetch(`http://localhost:5678/api/works/${id}`, {
-    method: "DELETE",
-    headers : {Authorization: `Bearer ${token}`}
-})
-.then(
-    await worksUi(),
-    await worksModal()
-)
+    await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(
+            await worksUi(),
+            await worksModal()
+        )
+        .catch((err) => {
+            console.log("work delete fetch error", err)
+        })
 }
 
 async function sendWorkModal(event) {
-event.preventDefault();
+    event.preventDefault();
 
-const formData = new FormData(event.target)
+    const formData = new FormData(event.target)
 
-await fetch(event.target.action, {
-    method: "post",
-    headers: { Authorization: `Bearer ${token}` },
-    body: formData
-    
-})
-.then((response) => {
-    if( response.ok ) {
-        console.log("work post success", response)
-        resetIndex()
-    } else {
-        console.log("work post bad response", response)
-        document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
-    }
-})
-.catch((err) => {
-    console.log("work post fetch error", err)
-    document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
-})
+    await fetch(event.target.action, {
+            method: "post",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: formData
+
+        })
+        .then((response) => {
+            if (response.ok) {
+                console.log("work post success", response)
+                resetIndex()
+            } else {
+                console.log("work post bad response", response)
+                document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+            }
+        })
+        .catch((err) => {
+            console.log("work post fetch error", err)
+            document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+        })
 
 }
 
 async function resetIndex() {
-await worksUi()
-await worksModal()
-goToStep(1)
-if(document.querySelector('dialog .form-file-preview')) document.querySelector('dialog .form-file-preview').classList.toggle("d-none", true)
-workModalForm.reset()
-document.querySelector('dialog .form-file-preview').src = ""
-document.querySelector("dialog").close()
+    await worksUi()
+    await worksModal()
+    goToStep(1)
+    if (document.querySelector('dialog .form-file-preview')) document.querySelector('dialog .form-file-preview').classList.toggle("d-none", true)
+    workModalForm.reset()
+    document.querySelector('dialog .form-file-preview').src = ""
+    document.querySelector("dialog").close()
 }
-
 
 
 // Build
@@ -126,4 +139,8 @@ worksModal()
 categorieModal()
 
 let workModalForm = document.querySelector("dialog #workModalForm")
-if (workModalForm) { workModalForm.addEventListener("submit", sendWorkModal) } else { console.log("workModalForm not found") }
+if (workModalForm) {
+    workModalForm.addEventListener("submit", sendWorkModal)
+} else {
+    console.log("workModalForm not found")
+}
