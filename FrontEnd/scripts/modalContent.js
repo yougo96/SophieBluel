@@ -11,7 +11,7 @@ async function worksModal() {
             childDiv.setAttribute('userid', i.userId)
             childDiv.innerHTML = `
                 <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
-                <button imageId="${i.id}" name="trash"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="button-absolute" imageId="${i.id}" name="trash" onclick="deleteWorks(event)"><i class="fa-solid fa-trash-can"></i></button>
             `
             parentDiv.appendChild(childDiv)
         });
@@ -31,28 +31,22 @@ async function categorieModal() {
     });
 }
 
-function nextStep(event) {
-    console.log("trying change step")
-
-    document.querySelectorAll(`dialog article`).forEach((elem) => {
-        elem.classList.toggle("d-none", true)
-    })
-
-    let target = event.target.getAttribute("step-target")
-    console.log(target)
-
-    document.querySelector(`dialog [step="${target}"]`).classList.toggle("d-none", false)
-
-    console.log("change step")
-}
-
-let imagePreviewUrl = null
 
 function imagePreview(event) {
-    let childDiv = document.querySelector('dialog .custom-file-preview')
-    childDiv.src = URL.createObjectURL(event.target.files[0])
-    childDiv.classList.toggle("d-none", false)
-    imagePreviewUrl = childDiv.src
+
+    let childDiv = document.querySelector('dialog .form-file-preview')
+    let imageSize = event.target.files[0].size
+
+    if (imageSize < 4705078 && childDiv) {
+        childDiv.src = URL.createObjectURL(event.target.files[0])
+        childDiv.classList.toggle("d-none", false)
+        document.querySelector('dialog .form-file-label').setAttribute("role", "")
+    } else {
+        childDiv.src = ""
+        childDiv.classList.toggle("d-none", true)
+        document.querySelector('dialog .form-file-label').setAttribute("role", "alert")
+        workModalForm.reset()
+    }
 }
 
 // Form modal
@@ -66,20 +60,16 @@ async function deleteWorks(event) {
         method: "DELETE",
         headers : {Authorization: `Bearer ${token}`}
     })
-
-    await worksUi()
-    await worksModal()
+    .then(
+        await worksUi(),
+        await worksModal()
+    )
 }
 
 async function sendWorkModal(event) {
     event.preventDefault();
 
-    console.log("trying to add works", event)
-
     const formData = new FormData(event.target)
-
-
-    console.log(formData)
 
     await fetch(event.target.action, {
         method: "post",
@@ -89,20 +79,27 @@ async function sendWorkModal(event) {
     })
     .then((response) => {
         if( response.ok ) {
-            console.log("work post", json)
+            console.log("work post success", response)
+            resetIndex()
         } else {
-            console.log("work post Failed")
+            console.log("work post bad response", response)
             document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
         }
     })
     .catch((err) => {
-        console.log(err)
-    });
+        console.log("work post fetch error", err)
+        document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+    })
+    
+}
 
+async function resetIndex() {
     await worksUi()
     await worksModal()
-    event.target.reset()
-    document.querySelector('dialog .custom-file-preview').src = ""
+    goToStep(1)
+    if(document.querySelector('dialog .form-file-preview')) document.querySelector('dialog .form-file-preview').classList.toggle("d-none", true)
+    workModalForm.reset()
+    document.querySelector('dialog .form-file-preview').src = ""
     document.querySelector("dialog").close()
 }
 
@@ -112,21 +109,5 @@ async function sendWorkModal(event) {
 worksModal()
 categorieModal()
 
-setTimeout(() => {
-    document.querySelectorAll(`#modal-gallery [name="trash"]`).forEach((elem) => {
-        elem.addEventListener("click", deleteWorks)
-    })
-
-    document.querySelectorAll(`[step-target]`).forEach((elem) => {
-        elem.addEventListener("click", nextStep)
-    })
-
-    document.querySelector('dialog input[type="file"]').addEventListener("change", imagePreview)
-    
-    let workForm = document.querySelector("dialog form")
-    workForm.addEventListener("submit", sendWorkModal)
-
-}, 200);
-
-
-
+let workModalForm = document.querySelector("dialog #workModalForm")
+if (workModalForm) { workModalForm.addEventListener("submit", sendWorkModal) } else { console.log("workModalForm not found") }

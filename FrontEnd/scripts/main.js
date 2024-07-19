@@ -18,10 +18,10 @@ if (userId && token) {
     })
 }
 
-document.querySelector("#logout").addEventListener("click", () => {
+function logout() {
     sessionStorage.clear()
     location.reload()
-})
+}
 
 
 // === Fetch /works ========================================================================
@@ -65,25 +65,23 @@ async function FiltersUi() {
     await categoriesJson()
 
     let parentDiv = document.querySelector('#portfolio > ul')
-    parentDiv.innerHTML = `<li id="0" class="active">Tous</li>`
+    parentDiv.innerHTML = `<li id="0" class="active" onclick="filtersAction(event)">Tous</li>`
 
     categories.forEach(i => {
         let childDiv = document.createElement("li")
         childDiv.id = i.id
+        childDiv.setAttribute('onclick', "filtersAction(event)")
         childDiv.innerHTML = `
         ${i.name}
         `
         parentDiv.appendChild(childDiv)
     });
-
-    document.querySelectorAll("#portfolio > ul > li").forEach((elem) => {
-        elem.addEventListener("click", clickFilters)
-    })
 }
 
-function clickFilters(event) {
-    let currentFilterId = 0
+function filtersAction(event) {
+    event.preventDefault()
 
+    let currentFilterId = 0
     document.querySelectorAll("#portfolio > ul > li").forEach((elem) => {elem.classList.toggle("active", false)})
     event.target.classList.toggle("active", true);
     currentFilterId = event.target.id
@@ -101,10 +99,20 @@ function clickFilters(event) {
 }
 
 
-
 // === Build page ========================================================================
 worksUi()
 FiltersUi()
 
+document.querySelectorAll("form").forEach((elem) => 
+    elem.addEventListener("change", checkValidityForm)
+);
 
-
+function checkValidityForm(event) {
+    // WIP
+    if (event.target.reportValidity() == true) {
+        console.log("form valid")
+        document.querySelector('[type="submit"]').setAttribute("role", "")
+    } else {
+        document.querySelector('[type="submit"]').setAttribute("role", "alert")
+    }
+}

@@ -1,9 +1,10 @@
-/* var */
 * {
-	color: #3D3D3D;
+	transition: all 0.2s ease;
 }
+/* var */
 :root {
     --main-color: #1D6154;
+	--secondary-color: #B1663C;
 }
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -30,6 +31,11 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -54,6 +60,10 @@ table {
 	border-spacing: 0;
 }
 /** end reset css **/
+
+
+
+
 body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -105,46 +115,48 @@ section .section-title {
     justify-content: center;
 	gap: 30px;
 }
-section .section-title a, section .section-title a > * {
+section .section-title a {
 	color: black;
 	font-size: 16px;
 	text-decoration: none;
 }
 
 /** Typo **/
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: var(--secondary-color);
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-	color: #B1663C;
+	color: var(--secondary-color);
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: var(--main-color)
 }
-
+p, span, label {
+	color: #3D3D3D;
+}
 i {
 	pointer-events: none;
+	color: black;
 }
+
+
 
 /** Nav **/
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-	color: black;
 }
 nav li {
 	padding: 0 10px;
@@ -153,6 +165,8 @@ nav li {
 nav li:hover {
 	color: #B1663C;
 }
+
+
 
 /** Intro **/
 #introduction {
@@ -177,6 +191,8 @@ nav li:hover {
 	margin-bottom: 0.5em;
 }
 
+
+
 /** gallery**/
 .gallery {
 	width: 100%;
@@ -187,26 +203,47 @@ nav li:hover {
 }
 .gallery img {
 	width: 100%;
-
+	height: calc(100% - 14px);
+	object-fit: cover;
 }
+.gallery img:hover {
+	opacity: 0.5;
+}
+
 /** Form section **/
+form > input,  form > select, form > textarea, button, input[type="submit"] {
+	min-height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
+}
+
+form label {
+	margin: 2em 0 1em 0;
+	font-weight: bolder;
+}
+
+form input, form select, form textarea {
+	padding: 0 16px;
+}
+
+*:focus-visible {
+	outline: thin solid #00000050;
+}
+
 input[type="submit"], button {
 	font-family: 'Syne';
 	font-weight: 700;
-	font-size: 1.2em;
+
 	color: white;
-	
 	background-color: var(--main-color);
-	border: none;
+
 	border-radius: 60px;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	cursor: pointer;
 
 	margin : 2em auto ;
 	padding: 0 40px;
-	text-align: center;
-	
-	height: 50px;
+	text-align: center;	
 }
 input[type="submit"] > *, button > * {
 	pointer-events: none;
@@ -226,6 +263,7 @@ input[type="submit"]:hover, button:hover {
 .section-form a {
 	text-align: center;
 	font-weight: bolder;
+	color: #3D3D3D;
 }
 .section-form h2{
 	margin-bottom: 20px;
@@ -236,25 +274,25 @@ input[type="submit"]:hover, button:hover {
 	display: flex;
 	flex-direction: column;
 }
-form input, select {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	cursor: pointer;
+
+form select {
+	appearance: none;
 }
-form label {
-	margin: 2em 0 1em 0;
-	font-weight: bolder;
+select option:checked { 
+	display:none; 
 }
-form textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+form select option {
+	min-height: 42px;
+	font-size: 1.2rem;
+	color: #3D3D3D;
 }
+
+
+
 form input[type="file"] {
 	display: none;
 }
-form .custom-file {
+form .form-file-label {
 	background-color: #E8F1F6;
 	height: 170px;
 	display: flex;
@@ -262,33 +300,45 @@ form .custom-file {
     flex-direction: column;
     align-items: center;
 	padding: 20px;
-	color: #444444;
 	gap: 7px;
 	cursor: pointer;
 
 	position: relative;
 }
-form .custom-file button {
+form .form-file-label > * {
+	pointer-events: none;
+}
+form .form-file-label button {
 	background-color: #CBD6DC;
 	color: #306685;
-	pointer-events: none;
 }
-form .custom-file .custom-file-preview {
+form .form-file-label .form-file-preview {
 	position: absolute;
 	top: 0;
-	height: 100%;
-	pointer-events: none;
+	height: 100%; width: 100%;
+    object-fit: contain;
+    backdrop-filter: blur(4px);
 }
-form .custom-file img {
+form .form-file-label img {
 	height: 76px;
 }
-form .custom-file span {
+form .form-file-label span {
 	font-weight: 400;
 	font-size: 10px;
 }
 
 [role="alert"] {
 	color: red;
+}
+.form-file-label[role="alert"] {
+	outline: thin solid red;
+}
+.form-file-label[role="alert"] > span {
+	color: red;
+	font-weight: bolder;
+}
+[type="submit"][role="alert"] {
+	cursor: no-drop !important;
 }
 
 /** Footer **/
@@ -300,7 +350,6 @@ footer nav ul {
 	justify-content: flex-end;
 	padding: 2em;
 	background-color: white;
-	color: black;
 }
 
 /** Filters **/
@@ -317,7 +366,7 @@ footer nav ul {
 	color: var(--main-color);
 }
 #portfolio li {
-	border: thin solid var(--main-color);
+	outline: thin solid var(--main-color);
 	border-radius: 5rem;
 	padding: 10px 20px;
 	color: var(--main-color);
@@ -349,7 +398,8 @@ dialog > article {
 dialog > article form {
 	width: 630px;
 }
-dialog > article [aria-label="Close"], dialog > article [aria-label="back"] {
+
+.button-absolute {
 	position: absolute;
 	top: 0; right: 0;
 	margin: 40px;
@@ -358,17 +408,36 @@ dialog > article [aria-label="Close"], dialog > article [aria-label="back"] {
 
 	background-color: transparent;
 	box-shadow: none;
-	width: 24px; height: 24px;
+	max-width: 24px; max-height: 24px;
+	min-width: 24px; min-height: 24px;
+
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
-dialog > article [aria-label="back"] {
+.button-absolute:hover {
+	background-color: initial;
+	opacity: 0.5;
+}
+.button-absolute[aria-label="back"] {
 	top: 0; left: 0;
 }
+.button-absolute[name="trash"] {
+	margin: 6px;
+	color: white;
+	background-color: black;
+	max-height: 17px; max-width: 17px;
+	min-height: 17px; min-width: 17px;
+}
+
 dialog > article input[type="submit"], dialog > article button {
-	margin: 0;
+	margin: 0 auto;
+}
+dialog > article > form input[type="submit"] {
+	min-width: 50%;
 }
 dialog > article h3 {
 	font-size: 26px;
-	color: black;
 	font-weight: 400;
 }
 dialog > article hr {
@@ -387,23 +456,16 @@ dialog .modal-gallery figure {
 dialog .modal-gallery img {
 	width: 100%;
 }
-dialog .modal-gallery [name="trash"] {
-	position: absolute;
-	top : 0; right: 0;
-	margin: 6px;
-	border-radius: 2px;
-	color: white;
-	background-color: black;
-	height: 17px; width: 17px;
-	padding: 0;
-	display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 dialog .modal-gallery i {
 	color: white;
 	font-size: 11px;
 }
+dialog:-internal-dialog-in-top-layer::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
 
 .d-none {
 	display: none !important;

@@ -1,31 +1,15 @@
-// Config
-let visibleModal = null;
-
 // Toggle modal
-const toggleModal = (event) => {
-    event.preventDefault();
-    const modal = document.getElementById(event.currentTarget.dataset.target);
-    if (!modal) return;
-    modal && (modal.open ? closeModal(modal) : openModal(modal));
+function toggleModal (event) {
+    event.preventDefault()
+    const modal = document.getElementById(event.currentTarget.dataset.target)
+    if (!modal) return
+    modal && (modal.open ? modal.close() : modal.showModal());
 };
 
-// Open modal
-const openModal = (modal) => {    
-    setTimeout(() => {
-        visibleModal = modal;
-    }, 10);
-    modal.showModal();
-};
-
-// Close modal
-const closeModal = (modal) => {
-    visibleModal = null;
-    modal.close();
-};
-
-// Close with Esc key
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && visibleModal) {
-        closeModal(visibleModal);
-    }
-});
+// Step manager
+function goToStep(step) {
+    document.querySelectorAll(`dialog article`).forEach((elem) => {
+        elem.classList.toggle("d-none", true)
+    })
+    if (step) document.querySelector(`dialog [step="${step}"]`).classList.toggle("d-none", false)
+}
