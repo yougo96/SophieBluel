@@ -6,15 +6,15 @@ let token = sessionStorage.getItem("token")
 
 if (userId && token) {
     if (userId = 1) {
-        document.querySelectorAll(".auth-admin").forEach((elem) => {
-            elem.classList.toggle("d-none", false)
+        document.querySelectorAll(".auth-admin").forEach(i => {
+            i.classList.toggle("d-none", false)
         })
     }
-    document.querySelectorAll(".auth-login").forEach((elem) => {
-        elem.classList.toggle("d-none", false)
+    document.querySelectorAll(".auth-login").forEach(i => {
+        i.classList.toggle("d-none", false)
     })
-    document.querySelectorAll(".auth-logoff").forEach((elem) => {
-        elem.classList.toggle("d-none", true)
+    document.querySelectorAll(".auth-logoff").forEach(i => {
+        i.classList.toggle("d-none", true)
     })
 }
 
@@ -40,15 +40,13 @@ async function worksUi() {
     parentDiv.innerHTML = ``
 
     works.forEach(i => {
-        let childDiv = document.createElement("figure")
-        childDiv.id = i.id
-        childDiv.setAttribute('categoryid', i.categoryId)
-        childDiv.setAttribute('userid', i.userId)
-        childDiv.innerHTML = `
-            <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
+        let childDiv = `
+        <figure id="${i.id}" categoryid="${i.categoryId}" userid="${i.userId}">
+        <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
             <figcaption>${i.title}</figcaption>
+        </figure>
         `
-        parentDiv.appendChild(childDiv)
+        parentDiv.insertAdjacentHTML("beforeend", childDiv)
     });
 }
 
@@ -68,13 +66,12 @@ async function FiltersUi() {
     parentDiv.innerHTML = `<li id="0" class="active" onclick="filtersAction(event)">Tous</li>`
 
     categories.forEach(i => {
-        let childDiv = document.createElement("li")
-        childDiv.id = i.id
-        childDiv.setAttribute('onclick', "filtersAction(event)")
-        childDiv.innerHTML = `
-        ${i.name}
+        let childDiv = `
+        <li id="${i.id}" onclick="filtersAction(event)">
+            ${i.name}
+        </li>
         `
-        parentDiv.appendChild(childDiv)
+        parentDiv.insertAdjacentHTML("beforeend", childDiv)
     });
 }
 
@@ -82,33 +79,23 @@ function filtersAction(event) {
     event.preventDefault()
 
     let currentFilterId = 0
-    document.querySelectorAll("#portfolio > ul > li").forEach((elem) => {elem.classList.toggle("active", false)})
+    document.querySelectorAll("#portfolio > ul > li").forEach(i => {i.classList.toggle("active", false)})
     event.target.classList.toggle("active", true);
     currentFilterId = event.target.id
        
-    document.querySelectorAll(".gallery > figure").forEach((elem) => {
-        elem.classList.toggle("d-none", true)
+    document.querySelectorAll(".gallery > figure").forEach(i => {
+        i.classList.toggle("d-none", true)
 
         if (currentFilterId == 0) {
-            elem.classList.toggle("d-none", false)
+            i.classList.toggle("d-none", false)
         }
-        else if (elem.getAttribute("categoryid") == currentFilterId) {
-            elem.classList.toggle("d-none", false)
+        else if (i.getAttribute("categoryid") == currentFilterId) {
+            i.classList.toggle("d-none", false)
         }
     })
 }
 
 function checkValidityForm(event) {
-
-    // fo.forEach( (elem => {
-    //     if(elem.hasAttribute('required') && elem.value != null){
-    //         //do your stuff
-    //     }
-    // })
-
-    console.log(event.currentTarget)
-
-    // WIP
     if (event.currentTarget.reportValidity() == true) {
         console.log("form valid")
         event.currentTarget.querySelector('[type="submit"]').setAttribute("role", "")
@@ -122,6 +109,6 @@ function checkValidityForm(event) {
 worksUi()
 FiltersUi()
 
-document.querySelectorAll("form").forEach((elem) => 
-    elem.addEventListener("input", checkValidityForm)
+document.querySelectorAll("form").forEach(i => 
+    i.addEventListener("input", checkValidityForm)
 );

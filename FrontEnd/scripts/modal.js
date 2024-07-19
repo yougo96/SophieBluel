@@ -8,8 +8,8 @@ function toggleModal(event) {
 
 // Step manager
 function goToStep(step) {
-    document.querySelectorAll(`dialog article`).forEach((elem) => {
-        elem.classList.toggle("d-none", true)
+    document.querySelectorAll(`dialog article`).forEach(i => {
+        i.classList.toggle("d-none", true)
     })
     if (step) document.querySelector(`dialog [step="${step}"]`).classList.toggle("d-none", false)
 }
@@ -21,15 +21,13 @@ async function worksModal() {
     parentDiv.innerHTML = ``
 
     works.forEach(i => {
-        let childDiv = document.createElement("figure")
-        childDiv.id = i.id
-        childDiv.setAttribute('categoryid', i.categoryId)
-        childDiv.setAttribute('userid', i.userId)
-        childDiv.innerHTML = `
+        let childDiv = `
+        <figure id="${i.id}" categoryid="${i.categoryId}" userid="${i.userId}">
             <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
             <button class="button-absolute" imageId="${i.id}" name="trash" onclick="deleteWorks(event)"><i class="fa-solid fa-trash-can"></i></button>
+        </figure>
         `
-        parentDiv.appendChild(childDiv)
+        parentDiv.insertAdjacentHTML("beforeend", childDiv)
     });
 }
 
@@ -40,10 +38,12 @@ async function categorieModal() {
     parentDiv.innerHTML = ``
 
     categories.forEach(i => {
-        let childDiv = document.createElement("option")
-        childDiv.value = i.id
-        childDiv.innerHTML = `${i.name}`
-        parentDiv.appendChild(childDiv)
+        let childDiv = `
+        <option id="${i.id}" value="${i.id}">
+            ${i.name}
+        </option>
+        `
+        parentDiv.insertAdjacentHTML("beforeend", childDiv)
     });
 }
 
@@ -134,7 +134,7 @@ async function resetIndex() {
 }
 
 
-// Build
+// Build modal
 worksModal()
 categorieModal()
 
