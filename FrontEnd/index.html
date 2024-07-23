@@ -95,7 +95,7 @@
 </footer>
 
 <!-- Modal -->
-<dialog id="modal-example">
+<dialog id="modal-example" onclick="event.target==this && this.close()">
 
 	<article id="modal-gallery" step="1" class="">
 		<button class="button-absolute" aria-label="Close" rel="prev" data-target="modal-example" onclick="toggleModal(event)">
@@ -136,11 +136,12 @@
 			
 			<label for="category">Catégorie</label>
 			<select id="category" name="category" required>
+				<option disabled selected value>- selectionner une categorie -</option>
 				<!-- ajax -->
 			</select>
 
 			<hr style="margin: 37px 0;">
-			<input type="submit" value="Valider">
+			<input type="submit" value="Valider" role="alert">
 		</form>
 
 	</article>

@@ -34,7 +34,7 @@ time, mark, audio, video {
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -388,14 +388,29 @@ footer nav ul {
 dialog {
 	border-radius: 10px;
 	border: 0;
-	padding: 50px 100px;
+	animation: closingModal 150ms ease-in-out 1;
+	transition-behavior: allow-discrete;
 }
+dialog[open] {
+    animation: OpeningModal 150ms ease-in-out 1;
+}
+
+@keyframes OpeningModal {
+	0%{ display: none; opacity: 0; transform: translateY(-10px); }
+	100%{ display: inherit; opacity: 1; transform: unset; }
+}
+@keyframes closingModal {
+	0%{ display: inherit; opacity: 1; transform: unset;	}
+	100% { opacity: 0; transform: translateY(-10px); visibility: hidden; display: none;	}
+
+}
+
 dialog > article {
 	display: flex;
 	flex-direction: column;
     align-items: center;
 	gap: 30px;
-
+	padding: 50px 100px;
 	max-width: 630px;
 }
 dialog > article form {

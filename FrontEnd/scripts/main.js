@@ -1,5 +1,3 @@
-
-
 // === Auth ========================================================================
 let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
@@ -28,18 +26,23 @@ function logout() {
 let works = null
 
 async function worksJson() {
-    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()}).then((obj) => {
-        console.log("worksJson", obj)
-        works = obj
+    await fetch("http://localhost:5678/api/works").then((res) => {return res.json()})
+    .then((json) => {
+        console.log("worksJson", json)
+        works = json
     })
+    .catch((err) => {console.log(err)})
 }
-async function worksUi() {
+
+async function worksUi(obj) {
     await worksJson()
+
+    obj ?? (obj = works)
 
     let parentDiv = document.querySelector('.gallery')
     parentDiv.innerHTML = ``
 
-    works.forEach(i => {
+    obj.forEach(i => {
         let childDiv = `
         <figure id="${i.id}" categoryid="${i.categoryId}" userid="${i.userId}">
         <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
@@ -54,9 +57,9 @@ async function worksUi() {
 let categories = null
 
 async function categoriesJson() {
-    await fetch("http://localhost:5678/api/categories").then((res) => {return res.json()}).then((obj) => {
-        console.log("categoriesJson", obj)
-        categories = obj;
+    await fetch("http://localhost:5678/api/categories").then((res) => {return res.json()}).then((json) => {
+        console.log("categoriesJson", json)
+        categories = new Set(json);
     })
 }
 async function FiltersUi() {
@@ -79,10 +82,21 @@ function filtersAction(event) {
     event.preventDefault()
 
     let currentFilterId = 0
+
     document.querySelectorAll("#portfolio > ul > li").forEach(i => {i.classList.toggle("active", false)})
-    event.target.classList.toggle("active", true);
     currentFilterId = event.target.id
+    event.target.classList.toggle("active", true);
+
+    // filer
+    // if (currentFilterId == 0) { 
+    //     worksUi()
+    //  }
+    // else { 
+    //     const filterList = works.filter((figure) => figure.categoryId == currentFilterId) 
+    //     worksUi(filterList)
+    // }
        
+    // Display
     document.querySelectorAll(".gallery > figure").forEach(i => {
         i.classList.toggle("d-none", true)
 

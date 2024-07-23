@@ -35,7 +35,9 @@ async function categorieModal() {
     await categoriesJson()
 
     let parentDiv = document.querySelector('dialog select')
-    parentDiv.innerHTML = ``
+    parentDiv.innerHTML = `
+        <option disabled selected value>- selectionner une categorie -</option>
+        `
 
     categories.forEach(i => {
         let childDiv = `
