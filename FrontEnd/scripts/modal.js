@@ -57,7 +57,8 @@ function imagePreview(event) {
     console.log(imageFile)
     console.log(event.target)
 
-    if ( imageFile != undefined || imageFile != null
+    if ( 
+        (imageFile != undefined || imageFile != null)
         && childDiv
         && (imageFile.type == "image/png" || imageFile.type == "image/jpeg")
         && imageFile.size < 4705078
