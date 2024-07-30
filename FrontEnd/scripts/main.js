@@ -103,14 +103,14 @@ function filtersAction(event) {
         if (currentFilterId == 0) {
             i.classList.toggle("d-none", false)
         }
-        else if (i.getAttribute("categoryid") == currentFilterId) {
+        else if (i.getAttribute("categoryid") === currentFilterId) {
             i.classList.toggle("d-none", false)
         }
     })
 }
 
 function checkValidityForm(event) {
-    if (event.currentTarget.reportValidity() == true) {
+    if (event.currentTarget.reportValidity() === true) {
         console.log("form valid")
         event.currentTarget.querySelector('[type="submit"]').setAttribute("role", "")
     } else {
@@ -124,5 +124,5 @@ worksUi()
 FiltersUi()
 
 document.querySelectorAll("form").forEach(i => 
-    i.addEventListener("input", checkValidityForm)
+    i.addEventListener("change", checkValidityForm)
 );
