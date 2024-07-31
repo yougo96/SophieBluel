@@ -43,6 +43,8 @@ async function worksUi(obj) {
     parentDiv.innerHTML = ``
 
     obj.forEach(i => {
+        i.title = i.title.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"").trim();
+
         let childDiv = `
         <figure id="${i.id}" categoryid="${i.categoryId}" userid="${i.userId}">
         <img loading="lazy" src="${i.imageUrl}" alt="${i.title}">
@@ -125,4 +127,4 @@ FiltersUi()
 
 document.querySelectorAll("form").forEach(i => 
     i.addEventListener("change", checkValidityForm)
-);
+)
