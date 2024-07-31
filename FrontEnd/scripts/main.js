@@ -3,7 +3,7 @@ let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
 
 if (userId && token) {
-    if (userId = 1) {
+    if (userId == 1) {
         document.querySelectorAll(".auth-admin").forEach(i => {
             i.classList.toggle("d-none", false)
         })
