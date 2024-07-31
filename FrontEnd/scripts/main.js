@@ -3,7 +3,7 @@ let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
 
 if (userId && token) {
-    if (userId == 1) {
+    if (userId = 1) {
         document.querySelectorAll(".auth-admin").forEach(i => {
             i.classList.toggle("d-none", false)
         })
@@ -82,31 +82,16 @@ async function FiltersUi() {
 
 function filtersAction(event) {
     event.preventDefault()
-
-    let currentFilterId = 0
-
-    document.querySelectorAll("#portfolio > ul > li").forEach(i => {i.classList.toggle("active", false)})
-    currentFilterId = event.target.id
+    // Filters
+    document.querySelectorAll("#portfolio > ul > li").forEach(i => {i.classList.toggle("active", false)})       
     event.target.classList.toggle("active", true);
-
-    // filer
-    // if (currentFilterId == 0) { 
-    //     worksUi()
-    //  }
-    // else { 
-    //     const filterList = works.filter((figure) => figure.categoryId == currentFilterId) 
-    //     worksUi(filterList)
-    // }
-       
-    // Display
+    // Gallery
     document.querySelectorAll(".gallery > figure").forEach(i => {
-        i.classList.toggle("d-none", true)
-
-        if (currentFilterId == 0) {
-            i.classList.toggle("d-none", false)
+        if (event.target.id == 0) {
+            i.classList.toggle("filtered", false)
         }
-        else if (i.getAttribute("categoryid") === currentFilterId) {
-            i.classList.toggle("d-none", false)
+        else {
+            i.classList.toggle("filtered", i.getAttribute("categoryid") !== event.target.id)
         }
     })
 }
