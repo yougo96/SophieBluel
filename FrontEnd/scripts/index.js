@@ -1,7 +1,4 @@
 // === Auth ========================================================================
-let userId = sessionStorage.getItem("userId")
-let token = sessionStorage.getItem("token")
-
 if (userId && token) {
     if (userId = 1) {
         document.querySelectorAll(".auth-admin").forEach(i => {

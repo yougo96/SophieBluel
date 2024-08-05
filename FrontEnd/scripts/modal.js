@@ -91,6 +91,12 @@ function imagePreview(event) {
 async function deleteWorks(event) {
     event.preventDefault();
 
+    const formDataCheck = checkInputForm("delete")
+    if (!formDataCheck) {
+        console.log("delete invalid, not logged in")
+        return
+    }
+
     let id = event.target.getAttribute("imageid")
 
     await fetch( apiUrl + `works/${id}`, {
@@ -112,6 +118,13 @@ async function sendWorkModal(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target)
+
+    const formDataCheck = checkInputForm("post", formData)
+    if (!formDataCheck) {
+        console.log("work formData invalid or not logged in")
+        document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+        return
+    }
 
     await fetch( apiUrl + `works`, {
             method: "post",

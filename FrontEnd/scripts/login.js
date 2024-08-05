@@ -6,6 +6,13 @@ function handleLogin(event) {
 
     const formData = new FormData(event.target)
 
+    const formDataCheck = checkInputForm("login", formData)
+    if (!formDataCheck) {
+        console.log("login formData invalid")
+        document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
+        return
+    }
+
     fetch(event.target.action, {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -25,7 +32,7 @@ function handleLogin(event) {
         }
     })
     .catch((err) => {
-        console.log("login fuction Failed", err)
+        console.log("login function Failed", err)
         document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
     })
     
