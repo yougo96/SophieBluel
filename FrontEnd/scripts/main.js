@@ -1,8 +1,16 @@
+// This is the base URL for the API. localhsot is only used for development purposes.
 const apiUrl = "http://localhost:5678/api/"
 
 let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
 
+/**
+ * Checks the validity of the input form based on the given method and form data object.
+ *
+ * @param {string} method [method=get] - The method used for form submission.
+ * @param {object} formDataObject - The form data object containing the input values.
+ * @return {boolean} Returns true if the form is valid, false otherwise.
+ */
 function checkInputForm(method, formDataObject) {
     console.log("checkInputForm", method, formDataObject)
   switch (method) {
@@ -41,7 +49,8 @@ function checkInputForm(method, formDataObject) {
             return false
         }      
     default:
-      console.log(`method not valid`, method)
+      console.log(`method argument not valid`, method)
+      return false
   }
 }
 
