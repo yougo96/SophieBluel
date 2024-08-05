@@ -1,17 +1,27 @@
 // Toggle modal
 function toggleModal(event) {
-    event.preventDefault()
     const modal = document.getElementById(event.currentTarget.dataset.target)
     if (!modal) return
     modal && (modal.open ? modal.close() : modal.showModal());
-};
+}
 
 // Step manager
-function goToStep(step) {
-    document.querySelectorAll(`dialog article`).forEach(i => {
-        i.classList.toggle("d-none", true)
-    })
-    if (step) document.querySelector(`dialog [step="${step}"]`).classList.toggle("d-none", false)
+function goToStep(event, customStep) {
+    let step = null
+    if (event != undefined || event != null) {
+        step = event.currentTarget.dataset.target
+    } else {
+        step = customStep
+    }
+
+    if (step) { 
+        console.log(step)
+
+        document.querySelectorAll(`dialog article`).forEach(i => {
+            i.classList.toggle("d-none", true)
+        })
+        document.querySelector(`dialog [step="${step}"]`).classList.toggle("d-none", false)
+    }
 }
 
 // UI modal
@@ -72,7 +82,8 @@ function imagePreview(event) {
         childDiv.src = ""
         childDiv.classList.toggle("d-none", true)
         document.querySelector('dialog .form-file-label').setAttribute("role", "alert")
-        workModalForm.reset()
+        document.querySelector('#image').value = ""
+        // workModalForm.reset()
     }
 }
 
@@ -82,7 +93,7 @@ async function deleteWorks(event) {
 
     let id = event.target.getAttribute("imageid")
 
-    await fetch(`http://localhost:5678/api/works/${id}`, {
+    await fetch( apiUrl + `works/${id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -102,7 +113,7 @@ async function sendWorkModal(event) {
 
     const formData = new FormData(event.target)
 
-    await fetch(event.target.action, {
+    await fetch( apiUrl + `works`, {
             method: "post",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -129,17 +140,27 @@ async function sendWorkModal(event) {
 async function resetIndex() {
     await worksUi()
     await worksModal()
-    goToStep(1)
+    goToStep(null, 1)
     if (document.querySelector('dialog .form-file-preview')) document.querySelector('dialog .form-file-preview').classList.toggle("d-none", true)
     workModalForm.reset()
     document.querySelector('dialog .form-file-preview').src = ""
     document.querySelector("dialog").close()
 }
 
-
 // Build modal
 worksModal()
 categorieModal()
+
+// Event listener
+document.querySelector("#edit").addEventListener("click", toggleModal)
+document.querySelector("#modal-example").addEventListener("click", (event) => {if(event.target == event.currentTarget) event.target.close()})
+document.querySelectorAll(".goToStep").forEach(i => 
+    i.addEventListener("click", goToStep)
+)
+document.querySelectorAll("[aria-label='Close']").forEach(i => 
+    i.addEventListener("click", toggleModal)
+)
+document.querySelector("#image").addEventListener("change", imagePreview)
 
 let workModalForm = document.querySelector("dialog #workModalForm")
 if (workModalForm) {

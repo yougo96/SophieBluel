@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 
 	<script src="./scripts/main.js" defer></script>
+	<script src="./scripts/index.js" defer></script>
 	<script src="./scripts/modal.js" defer></script>
 </head>
 <body>
@@ -32,7 +33,7 @@
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
 			<li class="auth-logoff login" ><a id="login" href="./login.html">login</a></li>
-			<li class="auth-login logout d-none"><a id="logout" href="#" onclick="logout()">logout</a></li>
+			<li class="auth-login logout d-none"><a id="logout" href="#">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -56,7 +57,7 @@
 
 		<div class="section-title">
 			<h2>Mes Projets</h2>
-			<a href="#" class="auth-admin d-none" id="edit" data-target="modal-example" onclick="toggleModal(event)" step-target="1">
+			<a href="#" class="auth-admin d-none" id="edit" data-target="modal-example" step-target="1">
 				<i class="fa-regular fa-pen-to-square"></i>
 				modifier
 			</a>
@@ -95,10 +96,10 @@
 </footer>
 
 <!-- Modal -->
-<dialog id="modal-example" onclick="event.target==this && this.close()">
+<dialog id="modal-example">
 
 	<article id="modal-gallery" step="1" class="">
-		<button class="button-absolute" aria-label="Close" rel="prev" data-target="modal-example" onclick="toggleModal(event)">
+		<button class="button-absolute" aria-label="Close" rel="prev" data-target="modal-example">
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 		<h3>Galerie photo</h3>
@@ -106,21 +107,21 @@
 			<!-- ajax -->
 		</div>
 		<hr>
-		<button onclick="goToStep(2)">Ajouter une photo</button>
+		<button class="goToStep" data-target="2">Ajouter une photo</button>
 	</article>
 
 	<article id="modal-add" step="2" class="d-none">
-		<button class="button-absolute" aria-label="back" onclick="goToStep(1)">
+		<button class="goToStep button-absolute" aria-label="back" data-target="1">
 			<i class="fa-solid fa-arrow-left"></i>
 		</button>
-		<button class="button-absolute" aria-label="Close" rel="prev" data-target="modal-example" onclick="toggleModal(event)">
+		<button class="button-absolute" aria-label="Close" rel="prev" data-target="modal-example">
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 
 		<h3>Ajout photo</h3>
 		<h3 role="alert" class="d-none">Erreur dans l'envoie</h3>
 
-		<form id="workModalForm" action="http://localhost:5678/api/works" method="post" enctype="multipart/form-data">
+		<form id="workModalForm">
 			
 			<label for="image" class="form-file-label">
 				<img src="./assets/icons/picture.png" alt="picture icon">
@@ -128,7 +129,7 @@
 				<span>jpg, png : 4mo max</span>
 				<!-- ajax -->
 				<img src="" alt="" class="form-file-preview d-none">
-				<input type="file" id="image" name="image" accept="image/png, image/jpeg" onchange="imagePreview(event)" required>
+				<input type="file" id="image" name="image" accept="image/png, image/jpeg" required>
 			</label>
 
 			<label for="title">Titre</label>
