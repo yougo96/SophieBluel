@@ -18,7 +18,6 @@ function checkInputForm(method, formDataObject) {
         return true
     case "login":
         for (var i of formDataObject.entries()) {
-            console.log(i)
             if (i[1] == "") {
                 return false
             }
@@ -27,7 +26,6 @@ function checkInputForm(method, formDataObject) {
     case "post":
         if (userId && token) {
             for (var i of formDataObject.entries()) {
-                console.log(i)
                 if (i[1] == "") {
                     return false
                 }

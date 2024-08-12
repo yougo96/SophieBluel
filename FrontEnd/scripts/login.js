@@ -13,7 +13,7 @@ function handleLogin(event) {
         return
     }
 
-    fetch(event.target.action, {
+    fetch( apiUrl + `users/login`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(formData))
@@ -35,5 +35,4 @@ function handleLogin(event) {
         console.log("login function Failed", err)
         document.querySelector(`[role="alert"]`).classList.toggle("d-none", false)
     })
-    
 }

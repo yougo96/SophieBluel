@@ -99,15 +99,15 @@ async function deleteWorks(event) {
 
     let id = event.target.getAttribute("imageid")
 
-    await fetch( apiUrl + `works/${id}`, {
+    fetch( apiUrl + `works/${id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         .then(
-            await worksUi(),
-            await worksModal()
+            worksUi(),
+            worksModal()
         )
         .catch((err) => {
             console.log("work delete fetch error", err)
