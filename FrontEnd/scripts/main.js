@@ -2,7 +2,7 @@
 // const apiUrl = "http://localhost:5678"
 let apiUrl = new URL(location.origin)
 apiUrl.port = '';
-apiUrl += ''
+apiUrl += 'api/'
 
 let userId = sessionStorage.getItem("userId")
 let token = sessionStorage.getItem("token")
