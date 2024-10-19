@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+
+  backend:
+    build: ./Backend
+    ports:
+      - "5678:5678"
+    volumes:
+      - "./Backend:/app"
+      - "/app/node_modules"
+    container_name: sophie-bluel-backend
+
+  frontend:
+    build: ./FrontEnd
+    ports:
+      - "8080:80"
+    volumes:
+      - "./FrontEnd:/app"
+      - "./FrontEnd:/usr/share/nginx/html"
+    container_name: sophie-bluel-frontend
