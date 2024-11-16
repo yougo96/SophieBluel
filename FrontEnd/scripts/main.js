@@ -1,7 +1,7 @@
 // This is the base URL for the API. localhsot is only used for development purposes.
 // const apiUrl = "http://localhost:5678"
 let apiUrl = new URL(location.origin)
-apiUrl.port = '5678';
+// apiUrl.port = '5678';
 apiUrl += 'api/'
 
 let userId = sessionStorage.getItem("userId")

@@ -1,20 +1,42 @@
 version: '3.8'
 services:
 
-  backend:
+  sophie-backend:
     build: ./Backend
-    ports:
-      - "5678:5678"
+    # ports:
+    #   - "5678:5678"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sophie-backend.rule=Host(`sophie.pradierh.fr`) && PathPrefix(`/api`)
+      - traefik.http.routers.sophie-backend.entrypoints=websecure
+      - traefik.http.routers.sophie-backend.tls=true
+      - traefik.http.routers.sophie-backend.tls.certresolver=myresolver
+      - traefik.http.services.sophie-backend.loadbalancer.server.port=5678
     volumes:
       - "./Backend:/app"
       - "/app/node_modules"
-    container_name: sophie-bluel-backend
+    container_name: sophie-backend
+    networks:
+      - proxy
 
-  frontend:
+  sophie-frontend:
     build: ./FrontEnd
-    ports:
-      - "8080:80"
+    # ports:
+    #   - "8080:80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sophie-frontend.rule=Host(`sophie.pradierh.fr`)
+      - traefik.http.routers.sophie-frontend.entrypoints=websecure
+      - traefik.http.routers.sophie-frontend.tls=true
+      - traefik.http.routers.sophie-frontend.tls.certresolver=myresolver
+      - traefik.http.services.sophie-frontend.loadbalancer.server.port=80
     volumes:
       - "./FrontEnd:/app"
       - "./FrontEnd:/usr/share/nginx/html"
-    container_name: sophie-bluel-frontend
+    container_name: sophie-frontend
+    networks:
+      - proxy
+      
+networks:
+  proxy:
+    external: true
